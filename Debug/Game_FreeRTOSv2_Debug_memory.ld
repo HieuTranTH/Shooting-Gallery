@@ -1,0 +1,26 @@
+/*
+ * GENERATED FILE - DO NOT EDIT
+ * (c) Code Red Technologies Ltd, 2008-2013
+ * (c) NXP Semiconductors 2013-2018
+ * Generated linker script file for LPC1549
+ * Created from memory.ldt by FMCreateLinkMemory
+ * Using Freemarker v2.3.23
+ * LPCXpresso v8.2.2 [Build 650] [2016-09-09]  on Feb 21, 2018 3:59:56 PM
+ */
+
+MEMORY
+{
+  /* Define each memory region */
+  MFlash256 (rx) : ORIGIN = 0x0, LENGTH = 0x40000 /* 256K bytes (alias Flash) */  
+  Ram0_16_32_36 (rwx) : ORIGIN = 0x2000000, LENGTH = 0x9000 /* 36K bytes (alias RAM) */  
+}
+
+  /* Define a symbol for the top of each memory region */
+  __base_MFlash256 = 0x0  ; /* MFlash256 */  
+  __base_Flash = 0x0 ; /* Flash */  
+  __top_MFlash256 = 0x0 + 0x40000 ; /* 256K bytes */  
+  __top_Flash = 0x0 + 0x40000 ; /* 256K bytes */  
+  __base_Ram0_16_32_36 = 0x2000000  ; /* Ram0_16_32_36 */  
+  __base_RAM = 0x2000000 ; /* RAM */  
+  __top_Ram0_16_32_36 = 0x2000000 + 0x9000 ; /* 36K bytes */  
+  __top_RAM = 0x2000000 + 0x9000 ; /* 36K bytes */  
