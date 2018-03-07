@@ -48,6 +48,10 @@ extern uint8_t gameLengthV, litBeforeHitV, litAfterHitV,
 		numberOfTargetsV, smallTargetPointV, mediumTargetPointV,
 		largeTargetPointV, highScoreToggleV, timeLeftToggleV,
 		soundToggleV;
+
+/* FreeRTOS timer */
+extern TimerHandle_t xTimer1;
+
 /*****************************************************************************
  * Private functions
  ****************************************************************************/

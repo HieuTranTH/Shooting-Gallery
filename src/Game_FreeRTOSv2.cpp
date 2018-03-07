@@ -110,7 +110,7 @@ static volatile xSemaphoreHandle SoundMutex = xSemaphoreCreateMutex();
 static volatile QueueHandle_t xQueue = xQueueCreate(10, sizeof(QueueItem));
 
 /* FreeRTOS timer */
-static volatile TimerHandle_t xTimer1;
+TimerHandle_t xTimer1;
 
 /*Game parameters*/
 uint8_t gameLengthV = 100, litBeforeHitV = 10, litAfterHitV = 2,
@@ -1615,7 +1615,7 @@ static void vStateMachineTask(void *pvParameters) {
 			highScoreToggle, timeLeftToggle, soundToggle, saveButton, menu);
 
 	QueueItem i;
-	xTimerStart(xTimer1, 0);
+
 
 	while (1) {
 		if (xQueue != 0) {

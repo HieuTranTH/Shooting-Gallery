@@ -131,6 +131,7 @@ void StateMachine::HandleStatePause(const Event& e) {
 void StateMachine::HandleStateRunning0(const Event& e) {
 	switch (e.type) {
 	case Event::eEnter:
+		xTimerStart(xTimer1, 0);
 		menu.setPosition(1);
 		menu.event(MenuItem::show);
 		srand(xTaskGetTickCount());
@@ -143,6 +144,7 @@ void StateMachine::HandleStateRunning0(const Event& e) {
 		canVal = true;
 		break;
 	case Event::eExit:
+		xTimerStop(xTimer1, 0);
 		greenLED(currentTarget, false);
 		canVal = false;
 		break;
@@ -193,6 +195,7 @@ void StateMachine::HandleStateRunning1(const Event& e) {
 		canVal = true;
 		break;
 	case Event::eExit:
+		xTimerStop(xTimer1, 0);
 		redLED(lastTarget, false);
 		greenLED(currentTarget, false);
 		canVal = false;
@@ -245,6 +248,7 @@ void StateMachine::HandleStateRunning2(const Event& e) {
 		canVal = true;
 		break;
 	case Event::eExit:
+		xTimerStop(xTimer1, 0);
 		greenLED(currentTarget, false);
 		canVal = false;
 		break;
