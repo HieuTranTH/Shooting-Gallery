@@ -104,6 +104,7 @@ static volatile xSemaphoreHandle soundEndSem = xSemaphoreCreateBinary();
 
 /* SPI Mutex to protect SPI0 transmission */
 static volatile xSemaphoreHandle SpiMutex = xSemaphoreCreateMutex();
+static volatile xSemaphoreHandle SoundMutex = xSemaphoreCreateMutex();
 
 /*Input queue */
 static volatile QueueHandle_t xQueue = xQueueCreate(10, sizeof(QueueItem));
@@ -320,7 +321,7 @@ void setupSpi0Master(void) {
 	/* Initialize SPI Block */
 	Chip_SPI_Init(LPC_SPI0);
 	/* Set SPI Config register */
-	spiCfg.ClkDiv = 0x0008; /* Set Clock divider to maximum */
+	spiCfg.ClkDiv = 0x0024; /* Set Clock divider to maximum */
 	spiCfg.Mode = SPI_MODE_MASTER; /* Enable Master Mode */
 	spiCfg.ClockMode = SPI_CLOCK_MODE0; /* Enable Mode 0 */
 	spiCfg.DataOrder = SPI_DATA_MSB_FIRST; /* Transmit MSB first */
@@ -329,10 +330,10 @@ void setupSpi0Master(void) {
 			| SPI_CFG_SPOL3_LO);
 	Chip_SPI_SetConfig(LPC_SPI0, &spiCfg);
 	/* Set Delay register */
-	spiDelayCfg.PreDelay = 2;
-	spiDelayCfg.PostDelay = 2;
-	spiDelayCfg.FrameDelay = 2;
-	spiDelayCfg.TransferDelay = 2;
+	spiDelayCfg.PreDelay = 0;
+	spiDelayCfg.PostDelay = 0;
+	spiDelayCfg.FrameDelay = 0;
+	spiDelayCfg.TransferDelay = 0;
 	Chip_SPI_DelayConfig(LPC_SPI0, &spiDelayCfg);
 	/* Enable SPI0 */
 	Chip_SPI_Enable(LPC_SPI0);
@@ -345,7 +346,7 @@ void setupSpi1Master(void) {
 	/* Initialize SPI Block */
 	Chip_SPI_Init(LPC_SPI1);
 	/* Set SPI Config register */
-	spiCfg.ClkDiv = 0x0008; /* Set Clock divider to maximum */
+	spiCfg.ClkDiv = 0x0024; /* Set Clock divider to maximum */
 	spiCfg.Mode = SPI_MODE_MASTER; /* Enable Master Mode */
 	spiCfg.ClockMode = SPI_CLOCK_MODE0; /* Enable Mode 0 */
 	spiCfg.DataOrder = SPI_DATA_MSB_FIRST; /* Transmit MSB first */
@@ -1334,17 +1335,21 @@ void vPlayStartSoundTask(void *pvParameters) {
 	char debug[50];
 	while (1) {
 		if (xSemaphoreTake(soundStartSem, portMAX_DELAY) == pdTRUE) {
-			sprintf(debug, "Start game sound playing.\r\n");
-			ITM_write(debug);
+			if (xSemaphoreTake(SoundMutex, portMAX_DELAY) == pdTRUE) {
+				sprintf(debug, "Start game sound playing.\r\n");
+				ITM_write(debug);
 
-			LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
-			vTaskDelay(250);
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (783.99 * 2)) - 1;
-			vTaskDelay(250);
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (880.00 * 2)) - 1;
-			vTaskDelay(250);
-			LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+				LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
+				vTaskDelay(250);
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (783.99 * 2)) - 1;
+				vTaskDelay(250);
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (880.00 * 2)) - 1;
+				vTaskDelay(250);
+				LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+
+				xSemaphoreGive(SoundMutex);
+			}
 		}
 	}
 }
@@ -1353,18 +1358,22 @@ void vPlayHitSoundTask(void *pvParameters) {
 	char debug[50];
 	while (1) {
 		if (xSemaphoreTake(soundHitSem, portMAX_DELAY) == pdTRUE) {
-			sprintf(debug, "Hit sound playing.\r\n");
-			ITM_write(debug);
+			if (xSemaphoreTake(SoundMutex, portMAX_DELAY) == pdTRUE) {
+				sprintf(debug, "Hit sound playing.\r\n");
+				ITM_write(debug);
 
-			LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
-			vTaskDelay(125);
-			LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
-			vTaskDelay(125);
-			LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
-			vTaskDelay(125);
-			LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+				LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
+				vTaskDelay(125);
+				LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+				vTaskDelay(125);
+				LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
+				vTaskDelay(125);
+				LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+
+				xSemaphoreGive(SoundMutex);
+			}
 		}
 	}
 }
@@ -1373,13 +1382,17 @@ void vPlayMissSoundTask(void *pvParameters) {
 	char debug[50];
 	while (1) {
 		if (xSemaphoreTake(soundMissSem, portMAX_DELAY) == pdTRUE) {
-			sprintf(debug, "Miss sound playing.\r\n");
-			ITM_write(debug);
+			if (xSemaphoreTake(SoundMutex, portMAX_DELAY) == pdTRUE) {
+				sprintf(debug, "Miss sound playing.\r\n");
+				ITM_write(debug);
 
-			LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (87.31 * 2)) - 1;
-			vTaskDelay(1000);
-			LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+				LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (87.31 * 2)) - 1;
+				vTaskDelay(1000);
+				LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+
+				xSemaphoreGive(SoundMutex);
+			}
 		}
 	}
 }
@@ -1388,17 +1401,21 @@ void vPlayEndSoundTask(void *pvParameters) {
 	char debug[50];
 	while (1) {
 		if (xSemaphoreTake(soundEndSem, portMAX_DELAY) == pdTRUE) {
-			sprintf(debug, "End game sound playing.\r\n");
-			ITM_write(debug);
+			if (xSemaphoreTake(SoundMutex, portMAX_DELAY) == pdTRUE) {
+				sprintf(debug, "End game sound playing.\r\n");
+				ITM_write(debug);
 
-			LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
-			vTaskDelay(250);
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (783.99 * 2)) - 1;
-			vTaskDelay(250);
-			LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
-			vTaskDelay(250);
-			LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+				LPC_SCT0->CTRL_L &= ~(1 << 2); // unhalt by clearing bit 2 of CTRL register
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
+				vTaskDelay(250);
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (783.99 * 2)) - 1;
+				vTaskDelay(250);
+				LPC_SCT0->MATCHREL[0].U = (SystemCoreClock / (698.46 * 2)) - 1;
+				vTaskDelay(250);
+				LPC_SCT0->CTRL_L |= (1 << 2); // halt by setting bit 2 of CTRL register
+
+				xSemaphoreGive(SoundMutex);
+			}
 		}
 	}
 }
@@ -1746,13 +1763,16 @@ void vTimer1Callback(TimerHandle_t xTimer) {
  */
 
 int main(void) {
+
 	prvSetupHardware();
 	/*************************************************************************************/
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0,
+	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 24,
 			(IOCON_DIGMODE_EN | IOCON_MODE_PULLUP | IOCON_INV_EN));
-	Chip_GPIO_SetPinDIRInput(LPC_GPIO, 0, 0);
+	Chip_GPIO_SetPinDIRInput(LPC_GPIO, 0, 24);
 	/*************************************************************************************/
-	if (Chip_GPIO_GetPinState(LPC_GPIO, 0, 0) == true) {
+	if (Chip_GPIO_GetPinState(LPC_GPIO, 0, 24) == true) {
+		while (Chip_GPIO_GetPinState(LPC_GPIO, 0, 24) == true) {
+		}
 #if 1
 		xTaskCreate(vTargetSendToQueueTask, "vTargetSendToQueueTask",
 				configMINIMAL_STACK_SIZE, NULL, (tskIDLE_PRIORITY + 3UL),
@@ -1810,7 +1830,7 @@ int main(void) {
 #endif
 #if 1
 		xTaskCreate(vBigDisplaysTask, "vBigDisplaysTask",
-				configMINIMAL_STACK_SIZE*2, NULL, (tskIDLE_PRIORITY + 1UL),
+				configMINIMAL_STACK_SIZE*6, NULL, (tskIDLE_PRIORITY + 1UL),
 				(TaskHandle_t *) NULL);
 #endif
 #if 1
@@ -1819,7 +1839,7 @@ int main(void) {
 				(TaskHandle_t *) NULL);
 #endif
 #if 1
-		xTaskCreate(vUARTTask, "vTaskUart", configMINIMAL_STACK_SIZE, NULL,
+		xTaskCreate(vUARTTask, "vUartTask", configMINIMAL_STACK_SIZE, NULL,
 				(tskIDLE_PRIORITY + 1UL), (TaskHandle_t *) NULL);
 #endif
 	}
