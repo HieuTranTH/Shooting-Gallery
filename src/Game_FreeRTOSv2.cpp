@@ -43,6 +43,129 @@ static uint16_t mo2_buff[] = { 0x0000, 0x0000 };
 //Master in buffer - IO Expander 2
 static uint16_t mi2_buff[sizeof(mo2_buff) / sizeof(mo2_buff[0])];
 
+/*
+ static uint16_t mo3_off_buff[] = { 0x0000,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x0000 };
+ */
+static uint16_t mo3_off_buff[] = { 0x0000,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+		0x0000 };
+static uint16_t mi3_off_buff[sizeof(mo3_off_buff) / sizeof(mo3_off_buff[0])];
+
+/*
+ static uint16_t mo3_green_buff[] = { 0x0000,   //
+ 0x8888, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0x8E8E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0xE8E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8888, 0xEEEE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x888E, 0x8E88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x888E, 0xE8E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x888E, 0xEEEE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x88E8, 0x8E88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x88E8, 0xE88E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x88E8, 0xEEE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x88EE, 0x8E88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x88EE, 0xE88E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x88EE, 0xEEE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8E88, 0x88EE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8E88, 0xE888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8E88, 0xEEE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8E8E, 0x88EE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8E8E, 0xE888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8E8E, 0xEE8E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8EE8, 0x88E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8EE8, 0xE888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8EE8, 0xEE8E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8EEE, 0x88E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8EEE, 0x8EEE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x8EEE, 0xEE88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE888, 0x88E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE888, 0x8EEE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE888, 0xEE88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE88E, 0x888E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE88E, 0x8EE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE88E, 0xEE88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE8E8, 0x888E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE8E8, 0x8EE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE8E8, 0xE8EE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE8EE, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE8EE, 0x8EE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xE8EE, 0xE8EE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE88, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE88, 0x8E8E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE88, 0xE8E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE8E, 0x8888, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE8E, 0x8E8E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE8E, 0xE8E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEE8E, 0xEEEE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEEE8, 0x8E88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEEE8, 0xE8E8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEEE8, 0xEEEE, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEEEE, 0x8E88, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEEEE, 0xE88E, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0xEEEE, 0xEEE8, 0x8888, 0x8888, 0x8888, 0x8888,   //
+ 0x0000 };
+ */
+
 /*SPI1*/
 //Master out buffer - IO Expander 4
 static uint16_t mo4_buff[] = { 0x0000, 0x0000 };
@@ -117,6 +240,11 @@ uint8_t gameLengthV = 100, litBeforeHitV = 10, litAfterHitV = 2,
 		numberOfTargetsV = 3, smallTargetPointV = 5, mediumTargetPointV = 2,
 		largeTargetPointV = 1, highScoreToggleV = 1, timeLeftToggleV = 1,
 		soundToggleV = 1;
+
+/*De Multiplexer Address*/
+static DigitalIoPin a0_demux(18, DigitalIoPin::output), a1_demux(19,
+		DigitalIoPin::output), a2_demux(20, DigitalIoPin::output), a3_demux(21,
+		DigitalIoPin::output);
 
 /*****************************************************************************
  * Private functions
@@ -242,6 +370,7 @@ void Init_SPI0_PinMux(void) {
 	 * SSEL0: PINASSIGN4[7:0]: Select P0.5
 	 * SSEL1: PINASSIGN4[7:0]: Select P0.6
 	 * SSEL2: PINASSIGN4[7:0]: Select P0.7
+	 * SSEL3: PINASSIGN4[7:0]: Select P0.0
 	 */
 	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 8,
 			(IOCON_MODE_INACT | IOCON_DIGMODE_EN));
@@ -255,6 +384,8 @@ void Init_SPI0_PinMux(void) {
 			(IOCON_MODE_INACT | IOCON_DIGMODE_EN));
 	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 7,
 			(IOCON_MODE_INACT | IOCON_DIGMODE_EN));
+	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 0,
+			(IOCON_MODE_INACT | IOCON_DIGMODE_EN));
 
 	Chip_SWM_MovablePortPinAssign(SWM_SPI0_SCK_IO, 0, 8); /* P0.8 */
 	Chip_SWM_MovablePortPinAssign(SWM_SPI0_MOSI_IO, 1, 6);/* P1.6 */
@@ -262,6 +393,7 @@ void Init_SPI0_PinMux(void) {
 	Chip_SWM_MovablePortPinAssign(SWM_SPI0_SSELSN_0_IO, 0, 5); /* P0.5 */
 	Chip_SWM_MovablePortPinAssign(SWM_SPI0_SSELSN_1_IO, 0, 6); /* P0.6 */
 	Chip_SWM_MovablePortPinAssign(SWM_SPI0_SSELSN_2_IO, 0, 7); /* P0.7 */
+	Chip_SWM_MovablePortPinAssign(SWM_SPI0_SSELSN_3_IO, 0, 0); /* P0.0 */
 
 	/* Disable the clock to the Switch Matrix to save power */
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
@@ -321,13 +453,13 @@ void setupSpi0Master(void) {
 	/* Initialize SPI Block */
 	Chip_SPI_Init(LPC_SPI0);
 	/* Set SPI Config register */
-	spiCfg.ClkDiv = 0x0024; /* Set Clock divider to maximum */
+	spiCfg.ClkDiv = 0x0015; /* Set Clock divider to maximum */
 	spiCfg.Mode = SPI_MODE_MASTER; /* Enable Master Mode */
 	spiCfg.ClockMode = SPI_CLOCK_MODE0; /* Enable Mode 0 */
 	spiCfg.DataOrder = SPI_DATA_MSB_FIRST; /* Transmit MSB first */
 	/* Slave select polarity is active low */
 	spiCfg.SSELPol = (SPI_CFG_SPOL0_LO | SPI_CFG_SPOL1_LO | SPI_CFG_SPOL2_LO
-			| SPI_CFG_SPOL3_LO);
+			| SPI_CFG_SPOL3_HI);
 	Chip_SPI_SetConfig(LPC_SPI0, &spiCfg);
 	/* Set Delay register */
 	spiDelayCfg.PreDelay = 0;
@@ -346,7 +478,7 @@ void setupSpi1Master(void) {
 	/* Initialize SPI Block */
 	Chip_SPI_Init(LPC_SPI1);
 	/* Set SPI Config register */
-	spiCfg.ClkDiv = 0x0024; /* Set Clock divider to maximum */
+	spiCfg.ClkDiv = 0x0015; /* Set Clock divider to maximum */
 	spiCfg.Mode = SPI_MODE_MASTER; /* Enable Master Mode */
 	spiCfg.ClockMode = SPI_CLOCK_MODE0; /* Enable Mode 0 */
 	spiCfg.DataOrder = SPI_DATA_MSB_FIRST; /* Transmit MSB first */
@@ -405,12 +537,14 @@ void WriteSpi0Mssg(uint16_t *xferPtr, uint32_t xferSize, uint32_t ssel,
 		}
 		XferSetup.TxCnt = 0;
 		XferSetup.RxCnt = 0;
+		portDISABLE_INTERRUPTS();
 		if (Chip_SPI_RWFrames_Blocking(LPC_SPI0, &XferSetup) > 0) {
 
 		} else {
 			/* Signal SPI error */
 			errorSPI();
 		}
+		portENABLE_INTERRUPTS();
 		xSemaphoreGive(SpiMutex);
 	}
 }
@@ -833,12 +967,42 @@ void greenLED(unsigned int target, bool state) {
 	char debug[20];
 	sprintf(debug, "Green LED: %d, %d\r\n", target, state);
 	ITM_write(debug);
+
+	a0_demux.write(target & (1 << 0));
+	a1_demux.write(target & (1 << 1));
+	a2_demux.write(target & (1 << 2));
+	a3_demux.write(target & (1 << 3));
+
+	if (state) {
+		mo3_off_buff[(target - 1) * 6 + 1] = 0xEEEE;
+		mo3_off_buff[(target - 1) * 6 + 2] = 0xEEEE;
+	} else {
+		mo3_off_buff[(target - 1) * 6 + 1] = 0x8888;
+		mo3_off_buff[(target - 1) * 6 + 2] = 0x8888;
+	}
+	WriteSpi0Mssg(mo3_off_buff, sizeof(mo3_off_buff) / sizeof(mo3_off_buff[0]),
+			3, mi3_off_buff);
 }
 
 void redLED(unsigned int target, bool state) {
 	char debug[20];
 	sprintf(debug, "Red LED: %d, %d\r\n", target, state);
 	ITM_write(debug);
+
+	a0_demux.write(target & (1 << 0));
+	a1_demux.write(target & (1 << 1));
+	a2_demux.write(target & (1 << 2));
+	a3_demux.write(target & (1 << 3));
+
+	if (state) {
+		mo3_off_buff[(target - 1) * 6 + 3] = 0xEEEE;
+		mo3_off_buff[(target - 1) * 6 + 4] = 0xEEEE;
+	} else {
+		mo3_off_buff[(target - 1) * 6 + 3] = 0x8888;
+		mo3_off_buff[(target - 1) * 6 + 4] = 0x8888;
+	}
+	WriteSpi0Mssg(mo3_off_buff, sizeof(mo3_off_buff) / sizeof(mo3_off_buff[0]),
+			3, mi3_off_buff);
 }
 
 void soundStart(void) {
@@ -1439,12 +1603,8 @@ void vPlayEndSoundTask(void *pvParameters) {
 
 void vCanonButtonTask(void *pvParameters) {
 	char debug[50];
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 24,
-	IOCON_DIGMODE_EN | IOCON_MODE_PULLUP | IOCON_INV_EN);
-	Chip_GPIO_SetPinDIRInput(LPC_GPIO, 0, 24);
 
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 1, 0,
-	IOCON_MODE_INACT | IOCON_DIGMODE_EN);
+	Chip_IOCON_PinMuxSet(LPC_IOCON, 1, 0, IOCON_MODE_INACT | IOCON_DIGMODE_EN);
 	Chip_GPIO_SetPinDIROutput(LPC_GPIO, 1, 0);
 	Chip_GPIO_SetPinState(LPC_GPIO, 1, 0, false);
 
@@ -1476,12 +1636,30 @@ static void vBigDisplaysTask(void *pvParameters) {
 			0, digit7 = 0, digit8 = 0, digit9 = 0, digit10 = 0, digit11 = 0,
 			digit12 = 0;
 	while (1) {
-//if (currentScore
-//	!= (digit1 * 1000 + digit2 * 100 + digit3 * 10 + digit4)) {
+
+		/* Current Score
+		 *  _____ _____ _____ _____
+		 * |     |     |     |     |
+		 * |     |     |     |     |
+		 * |  1  |  2  |  3  |  4  |
+		 * |     |     |     |     |
+		 * |_____|_____|_____|_____|
+		 */
 		digit1 = currentScore / 1000;
 		digit2 = (currentScore % 1000) / 100;
 		digit3 = (currentScore % 100) / 10;
 		digit4 = currentScore % 10;
+
+		/* Make the logic of digits to be blank if it is 0 */
+		if (digit1 == 0) {
+			digit1 = 0xF;
+			if (digit2 == 0) {
+				digit2 = 0xF;
+				if (digit3 == 0) {
+					digit3 = 0xF;
+				}
+			}
+		}
 		/*
 		 * Register 0x12, 0x13: GPIO: GENERAL PURPOSE I/O PORT REGISTER
 		 * Write GPIO outputs to both GPIOA and GPIOB
@@ -1489,18 +1667,33 @@ static void vBigDisplaysTask(void *pvParameters) {
 		mo0_buff[0] = 0x4012;
 		mo0_buff[1] = ((0xF & digit1) << 12) | ((0xF & digit2) << 8)
 				| ((0xF & digit3) << 4) | (0xF & digit4);
-//		((0x0F & (uint8_t) digit1) << 8) | ((uint8_t) 0x00);
 		/* Write simple message over SPI */
 		WriteSpi0Mssg(mo0_buff, sizeof(mo0_buff) / sizeof(mo0_buff[0]), 0,
 				mi0_buff);
-//}
 
-//if (timeLeft != (digit5 * 1000 + digit6 * 100 + digit7 * 10 + digit8)) {
+		/* Time Left
+		 *  _____ _____ _____ _____
+		 * |     |     |     |     |
+		 * |     |     |     |     |
+		 * |  5  |  6  |  7  |  8  |
+		 * |     |     |     |     |
+		 * |_____|_____|_____|_____|
+		 */
 		digit5 = timeLeft / 1000;
 		digit6 = (timeLeft % 1000) / 100;
 		digit7 = (timeLeft % 100) / 10;
 		digit8 = timeLeft % 10;
 		if (timeLeftToggleV) {
+			/* Make the logic of digits to be blank if it is 0 */
+			if (digit5 == 0) {
+				digit5 = 0xF;
+				if (digit6 == 0) {
+					digit6 = 0xF;
+					if (digit7 == 0) {
+						digit7 = 0xF;
+					}
+				}
+			}
 			/*
 			 * Register 0x12, 0x13: GPIO: GENERAL PURPOSE I/O PORT REGISTER
 			 * Write GPIO outputs to both GPIOA and GPIOB
@@ -1508,7 +1701,6 @@ static void vBigDisplaysTask(void *pvParameters) {
 			mo1_buff[0] = 0x4012;
 			mo1_buff[1] = ((0xF & digit5) << 12) | ((0xF & digit6) << 8)
 					| ((0xF & digit7) << 4) | (0xF & digit8);
-			//		((0x0F & (uint8_t) digit1) << 8) | ((uint8_t) 0x00);
 			/* Write simple message over SPI */
 			WriteSpi0Mssg(mo1_buff, sizeof(mo1_buff) / sizeof(mo1_buff[0]), 1,
 					mi1_buff);
@@ -1519,20 +1711,34 @@ static void vBigDisplaysTask(void *pvParameters) {
 			 */
 			mo1_buff[0] = 0x4012;
 			mo1_buff[1] = 0xFFFF;
-			//		((0x0F & (uint8_t) digit1) << 8) | ((uint8_t) 0x00);
 			/* Write simple message over SPI */
 			WriteSpi0Mssg(mo1_buff, sizeof(mo1_buff) / sizeof(mo1_buff[0]), 1,
 					mi1_buff);
 		}
-//	}
 
-//	if (highScore
-//		!= (digit9 * 1000 + digit10 * 100 + digit11 * 10 + digit12)) {
+		/* High Score
+		 *  _____ _____ _____ _____
+		 * |     |     |     |     |
+		 * |     |     |     |     |
+		 * |  9  |  10 |  11 |  12 |
+		 * |     |     |     |     |
+		 * |_____|_____|_____|_____|
+		 */
 		digit9 = highScore / 1000;
 		digit10 = (highScore % 1000) / 100;
 		digit11 = (highScore % 100) / 10;
 		digit12 = highScore % 10;
 		if (highScoreToggleV) {
+			/* Make the logic of digits to be blank if it is 0 */
+			if (digit9 == 0) {
+				digit9 = 0xF;
+				if (digit10 == 0) {
+					digit10 = 0xF;
+					if (digit12 == 0) {
+						digit12 = 0xF;
+					}
+				}
+			}
 			/*
 			 * Register 0x12, 0x13: GPIO: GENERAL PURPOSE I/O PORT REGISTER
 			 * Write GPIO outputs to both GPIOA and GPIOB
@@ -1540,7 +1746,6 @@ static void vBigDisplaysTask(void *pvParameters) {
 			mo2_buff[0] = 0x4012;
 			mo2_buff[1] = ((0xF & digit9) << 12) | ((0xF & digit10) << 8)
 					| ((0xF & digit11) << 4) | (0xF & digit12);
-			//		((0x0F & (uint8_t) digit1) << 8) | ((uint8_t) 0x00);
 			/* Write simple message over SPI */
 			WriteSpi0Mssg(mo2_buff, sizeof(mo2_buff) / sizeof(mo2_buff[0]), 2,
 					mi2_buff);
@@ -1551,12 +1756,10 @@ static void vBigDisplaysTask(void *pvParameters) {
 			 */
 			mo2_buff[0] = 0x4012;
 			mo2_buff[1] = 0xFFFF;
-			//		((0x0F & (uint8_t) digit1) << 8) | ((uint8_t) 0x00);
 			/* Write simple message over SPI */
 			WriteSpi0Mssg(mo2_buff, sizeof(mo2_buff) / sizeof(mo2_buff[0]), 2,
 					mi2_buff);
 		}
-//	}
 		vTaskDelay(configTICK_RATE_HZ / 5);
 	}
 }
@@ -1564,6 +1767,7 @@ static void vBigDisplaysTask(void *pvParameters) {
 static void vStateMachineTask(void *pvParameters) {
 	char debug[50];
 #if 1
+
 	LiquidCrystal lcd(0, 1, 2, 3, 4, 5);
 	lcd.begin(16, 2);
 	BarGraph bg50px(lcd, 50);
@@ -1633,6 +1837,10 @@ static void vStateMachineTask(void *pvParameters) {
 			highScoreToggle, timeLeftToggle, soundToggle, saveButton, menu);
 
 	QueueItem i;
+	xTimerStart(xTimer1, 0);
+
+	WriteSpi0Mssg(mo3_off_buff, sizeof(mo3_off_buff) / sizeof(mo3_off_buff[0]),
+			3, mi3_off_buff);
 
 	while (1) {
 		if (xQueue != 0) {
@@ -1783,9 +1991,11 @@ int main(void) {
 
 	prvSetupHardware();
 	/*************************************************************************************/
+	/*Canon button*/
 	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 24,
 			(IOCON_DIGMODE_EN | IOCON_MODE_PULLUP | IOCON_INV_EN));
 	Chip_GPIO_SetPinDIRInput(LPC_GPIO, 0, 24);
+
 	/*************************************************************************************/
 	if (Chip_GPIO_GetPinState(LPC_GPIO, 0, 24) == true) {
 		while (Chip_GPIO_GetPinState(LPC_GPIO, 0, 24) == true) {
