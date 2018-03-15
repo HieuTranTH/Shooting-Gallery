@@ -239,16 +239,10 @@ uint8_t gameLengthV = 100, litBeforeHitV = 10, litAfterHitV = 2,
 		largeTargetPointV = 1, highScoreToggleV = 1, timeLeftToggleV = 1,
 		soundToggleV = 1;
 
-#if 0
 /*De Multiplexer Address*/
-static DigitalIoPin a0_demux(18, DigitalIoPin::output), a1_demux(19,
-		DigitalIoPin::output), a2_demux(20, DigitalIoPin::output), a3_demux(21,
-		DigitalIoPin::output);
-
+static DigitalIoPin *a0_demux, *a1_demux, *a2_demux, *a3_demux;
 /*Cannon pins*/
-static DigitalIoPin button_cannon(14, DigitalIoPin::pullup, true);
-static DigitalIoPin valve_cannon(15, DigitalIoPin::output);
-#endif
+static DigitalIoPin *button_cannon, *valve_cannon;
 
 /*****************************************************************************
  * Private functions
@@ -313,32 +307,15 @@ static void prvSetupHardware(void) {
 	bootUpLoad();
 
 	/*************************************************************************************/
-	//a0_demux
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 12,
-	IOCON_MODE_INACT | IOCON_DIGMODE_EN);
-	Chip_GPIO_SetPinDIROutput(LPC_GPIO, 0, 12);
-	//a1_demux
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 14,
-	IOCON_MODE_INACT | IOCON_DIGMODE_EN);
-	Chip_GPIO_SetPinDIROutput(LPC_GPIO, 0, 14);
-	//a2_demux
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 23,
-	IOCON_MODE_INACT | IOCON_DIGMODE_EN);
-	Chip_GPIO_SetPinDIROutput(LPC_GPIO, 0, 23);
-	//a3_demux
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 22,
-	IOCON_MODE_INACT | IOCON_DIGMODE_EN);
-	Chip_GPIO_SetPinDIROutput(LPC_GPIO, 0, 22);
+	/*De Multiplexer Address*/
+	a0_demux = new DigitalIoPin(18, DigitalIoPin::output);
+	a1_demux = new DigitalIoPin(19, DigitalIoPin::output);
+	a2_demux = new DigitalIoPin(20, DigitalIoPin::output);
+	a3_demux = new DigitalIoPin(21, DigitalIoPin::output);
 
-	//button_cannon
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 0, 24,
-	IOCON_DIGMODE_EN | IOCON_MODE_PULLUP | IOCON_INV_EN);
-	Chip_GPIO_SetPinDIRInput(LPC_GPIO, 0, 24);
-	//valve_cannon
-	Chip_IOCON_PinMuxSet(LPC_IOCON, 1, 0,
-	IOCON_MODE_INACT | IOCON_DIGMODE_EN);
-	Chip_GPIO_SetPinDIROutput(LPC_GPIO, 1, 0);
-
+	/*Cannon pins*/
+	button_cannon = new DigitalIoPin(14, DigitalIoPin::pullup, true);
+	valve_cannon = new DigitalIoPin(15, DigitalIoPin::output);
 	/*************************************************************************************/
 }
 
@@ -1003,16 +980,12 @@ void greenLED(unsigned int target, bool state) {
 	sprintf(debug, "Green LED: %d, %d\r\n", target, state);
 	ITM_write(debug);
 	if (xSemaphoreTake(LEDStripMutex, portMAX_DELAY) == pdTRUE) {
-		/*
-		 a0_demux.write(target & (1 << 0));
-		 a1_demux.write(target & (1 << 1));
-		 a2_demux.write(target & (1 << 2));
-		 a3_demux.write(target & (1 << 3));
-		 */
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 12, target & (1 << 0));
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 14, target & (1 << 1));
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 23, target & (1 << 2));
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 22, target & (1 << 3));
+
+		a0_demux->write(target & (1 << 0));
+		a1_demux->write(target & (1 << 1));
+		a2_demux->write(target & (1 << 2));
+		a3_demux->write(target & (1 << 3));
+
 		/*
 		 if (state) {
 		 mo3_off_buff[(target - 1) * 6 + 1] = 0xEEEE;
@@ -1040,16 +1013,12 @@ void redLED(unsigned int target, bool state) {
 	sprintf(debug, "Red LED: %d, %d\r\n", target, state);
 	ITM_write(debug);
 	if (xSemaphoreTake(LEDStripMutex, portMAX_DELAY) == pdTRUE) {
-		/*
-		 a0_demux.write(target & (1 << 0));
-		 a1_demux.write(target & (1 << 1));
-		 a2_demux.write(target & (1 << 2));
-		 a3_demux.write(target & (1 << 3));
-		 */
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 12, target & (1 << 0));
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 14, target & (1 << 1));
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 23, target & (1 << 2));
-		Chip_GPIO_SetPinState(LPC_GPIO, 0, 22, target & (1 << 3));
+
+		a0_demux->write(target & (1 << 0));
+		a1_demux->write(target & (1 << 1));
+		a2_demux->write(target & (1 << 2));
+		a3_demux->write(target & (1 << 3));
+
 		/*
 		 if (state) {
 		 mo3_off_buff[(target - 1) * 6 + 3] = 0xEEEE;
@@ -1121,7 +1090,7 @@ void vCalibrationTask(void *pvParameters) {
 	LiquidCrystal lcd(0, 1, 2, 3, 4, 5);
 	lcd.begin(16, 2);
 	char s[16];
-	//snprintf(s, 16, "[%4d]", edit);
+
 	while (1) {
 		if (!doneCal) {
 			while (step == 0) {
@@ -1667,26 +1636,19 @@ void vPlayEndSoundTask(void *pvParameters) {
 void vCanonButtonTask(void *pvParameters) {
 	char debug[50];
 
-	//DigitalIoPin valve_cannon(15, DigitalIoPin::output);
-	//valve_cannon.write(false);
-	Chip_GPIO_SetPinState(LPC_GPIO, 1, 0, false);
-
+	valve_cannon->write(false);
 	bool old = false;
 	bool now = false;
-
 	while (1) {
-		//now = button_cannon.read();
-		now = Chip_GPIO_GetPinState(LPC_GPIO, 0, 24);
+		now = button_cannon->read();
 		if (now != old) {
 			if (now) {
 				if (canVal) {
 					sprintf(debug, "Canon shooting.\r\n");
 					ITM_write(debug);
-					//valve_cannon.write(true);
-					Chip_GPIO_SetPinState(LPC_GPIO, 1, 0, true);
+					valve_cannon->write(true);
 					vTaskDelay(150);
-					//valve_cannon.write(false);
-					Chip_GPIO_SetPinState(LPC_GPIO, 1, 0, false);
+					valve_cannon->write(false);
 					vTaskDelay(configTICK_RATE_HZ / 2);
 				}
 			}
