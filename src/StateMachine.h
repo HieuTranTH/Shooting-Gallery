@@ -25,16 +25,16 @@
 #define BUTTON_PAUSE 0x0002
 #define BUTTON_STOP 0x0001
 
-#define TARGET_1 0x0001
-#define TARGET_2 0x0002
-#define TARGET_3 0x0004
-#define TARGET_4 0x0008
-#define TARGET_5 0x0010
-#define TARGET_6 0x0100
-#define TARGET_7 0x0200
-#define TARGET_8 0x0400
-#define TARGET_9 0x0800
-#define TARGET_10 0x1000
+#define TARGET_1 0x1000
+#define TARGET_2 0x0800
+#define TARGET_3 0x0400
+#define TARGET_4 0x0200
+#define TARGET_5 0x0100
+#define TARGET_6 0x0010
+#define TARGET_7 0x0008
+#define TARGET_8 0x0004
+#define TARGET_9 0x0002
+#define TARGET_10 0x0001
 
 class Event {
 public:

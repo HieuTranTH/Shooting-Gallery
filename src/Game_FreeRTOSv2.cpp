@@ -699,7 +699,7 @@ void setup_IO_Expander_Targets(void) {
 	 * LOGIC LOW = 5V, LOGIC HIGH = 0V
 	 */
 	mo4_buff[0] = 0x4002;
-	mo4_buff[1] = 0x1F1E;
+	mo4_buff[1] = 0x0000;
 	/* Write simple message over SPI */
 	WriteSpi1Mssg(mo4_buff, sizeof(mo4_buff) / sizeof(mo4_buff[0]), 0,
 			mi4_buff);
@@ -710,7 +710,7 @@ void setup_IO_Expander_Targets(void) {
 	 * NORMAL STATE = 5V, PRESSED STATE = 0V
 	 */
 	mo4_buff[0] = 0x400C;
-	mo4_buff[1] = 0x1F1E;
+	mo4_buff[1] = 0x0000;
 	/* Write simple message over SPI */
 	WriteSpi1Mssg(mo4_buff, sizeof(mo4_buff) / sizeof(mo4_buff[0]), 0,
 			mi4_buff);
@@ -757,6 +757,15 @@ void setup_IO_Expander_Targets(void) {
 	/* Write simple message over SPI */
 	WriteSpi1Mssg(mo4_buff, sizeof(mo4_buff) / sizeof(mo4_buff[0]), 0,
 			mi4_buff);
+
+	/*Read which pin cause the interrupt*/
+	mo4_buff[0] = 0x410E;
+	mo4_buff[1] = 0x0000;
+	/* Write simple message over SPI */
+	WriteSpi1Mssg(mo4_buff, sizeof(mo4_buff) / sizeof(mo4_buff[0]), 0,
+			mi4_buff);
+	/*Read current state of pins to clear pending interrupt signal*/
+	clear_Pin_Int0();
 }
 
 void setup_IO_Expander_Buttons(void) {
@@ -833,6 +842,12 @@ void setup_IO_Expander_Buttons(void) {
 	 */
 	mo5_buff[0] = 0x4004;
 	mo5_buff[1] = 0xFF07;
+	/* Write simple message over SPI */
+	WriteSpi1Mssg(mo5_buff, sizeof(mo5_buff) / sizeof(mo5_buff[0]), 1,
+			mi5_buff);
+
+	mo5_buff[0] = 0x4112;
+	mo5_buff[1] = 0x0000;
 	/* Write simple message over SPI */
 	WriteSpi1Mssg(mo5_buff, sizeof(mo5_buff) / sizeof(mo5_buff[0]), 1,
 			mi5_buff);
