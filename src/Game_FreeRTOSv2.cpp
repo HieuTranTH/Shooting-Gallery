@@ -1126,13 +1126,25 @@ void soundEnd(void) {
 }
 
 void increaseScore(unsigned int target) {
-	if ((target >= 1) && (target <= 3)) {
-		currentScore += smallTargetPointV;
-	} else if ((target >= 4) && (target <= 6)) {
-		currentScore += mediumTargetPointV;
-	} else if ((target >= 7) && (target <= 10)) {
-		currentScore += largeTargetPointV;
-	}
+	/*if ((target >= 1) && (target <= 3)) {
+	 if (currentScore <= (999 - smallTargetPointV)) currentScore += smallTargetPointV;
+	 } else if ((target >= 4) && (target <= 6)) {
+	 if (currentScore <= (999 - mediumTargetPointV)) currentScore += mediumTargetPointV;
+	 } else if ((target >= 7) && (target <= 10)) {
+	 if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
+	 }
+	 if (currentScore > highScore) {
+	 highScore = currentScore;
+	 }*/
+
+	if (target == 1) {
+		if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
+	} else if (target == 2) {
+		if (currentScore <= (999 - mediumTargetPointV)) currentScore += mediumTargetPointV;
+	} else if (target == 3) {
+		if (currentScore <= (999 - smallTargetPointV)) currentScore += smallTargetPointV;
+	} else
+		if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
 	if (currentScore > highScore) {
 		highScore = currentScore;
 	}
@@ -1837,8 +1849,8 @@ static void vBigDisplaysTask(void *pvParameters) {
 				digit9 = 0xF;
 				if (digit10 == 0) {
 					digit10 = 0xF;
-					if (digit12 == 0) {
-						digit12 = 0xF;
+					if (digit11 == 0) {
+						digit11 = 0xF;
 					}
 				}
 			}
