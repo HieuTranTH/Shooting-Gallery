@@ -1126,28 +1126,31 @@ void soundEnd(void) {
 }
 
 void increaseScore(unsigned int target) {
-	/*if ((target >= 1) && (target <= 3)) {
-	 if (currentScore <= (999 - smallTargetPointV)) currentScore += smallTargetPointV;
-	 } else if ((target >= 4) && (target <= 6)) {
-	 if (currentScore <= (999 - mediumTargetPointV)) currentScore += mediumTargetPointV;
-	 } else if ((target >= 7) && (target <= 10)) {
-	 if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
-	 }
-	 if (currentScore > highScore) {
-	 highScore = currentScore;
-	 }*/
-
-	if (target == 1) {
-		if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
-	} else if (target == 2) {
-		if (currentScore <= (999 - mediumTargetPointV)) currentScore += mediumTargetPointV;
-	} else if (target == 3) {
-		if (currentScore <= (999 - smallTargetPointV)) currentScore += smallTargetPointV;
-	} else
-		if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
+	if ((target >= 1) && (target <= 3)) {
+		if (currentScore <= (999 - smallTargetPointV))
+			currentScore += smallTargetPointV;
+	} else if ((target >= 4) && (target <= 6)) {
+		if (currentScore <= (999 - mediumTargetPointV))
+			currentScore += mediumTargetPointV;
+	} else if ((target >= 7) && (target <= 10)) {
+		if (currentScore <= (999 - largeTargetPointV))
+			currentScore += largeTargetPointV;
+	}
 	if (currentScore > highScore) {
 		highScore = currentScore;
 	}
+	/*
+	 if (target == 1) {
+	 if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
+	 } else if (target == 2) {
+	 if (currentScore <= (999 - mediumTargetPointV)) currentScore += mediumTargetPointV;
+	 } else if (target == 3) {
+	 if (currentScore <= (999 - smallTargetPointV)) currentScore += smallTargetPointV;
+	 } else
+	 if (currentScore <= (999 - largeTargetPointV)) currentScore += largeTargetPointV;
+	 if (currentScore > highScore) {
+	 highScore = currentScore;
+	 }*/
 }
 
 void saveHighScore(void) {
